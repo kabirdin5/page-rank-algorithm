@@ -14,11 +14,16 @@ def load_graph(args):
     Returns:
     A dict mapling a URL (str) to a list of target URLs (str).
     """
-    # Iterate through the file line by line
-    for line in args.datafile:
-        # And split each line into two URLs
-        node, target = line.split()
-        raise RuntimeError("This function is not implemented yet.")
+    with open("school_web.txt", "r") as args.datafile:
+        # Iterate through the file line by line
+        for line in args.datafile:
+            # And split each line into two URLs
+            node, target = line.split()
+            dictionary = {
+                node: target
+            }
+            print(dictionary)
+            # raise RuntimeError("This function is not implemented yet.")
 
 
 def print_stats(graph):
