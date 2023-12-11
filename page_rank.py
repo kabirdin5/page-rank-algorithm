@@ -4,7 +4,6 @@ import time
 import argparse
 from progress import Progress
 
-open("school_web.txt", "r")
 def load_graph(args):
     """Load graph from text file
 
@@ -15,21 +14,25 @@ def load_graph(args):
     A dict mapling a URL (str) to a list of target URLs (str).
     """
     # Iterate through the file line by line
-    args.datafile = open("school_web.txt", "r")
-    for line in args.datafile:
-        # And split each line into two URLs
-        node, target = line.split()
-        loaded_graph = {
-            node: target
-            }
-        print(loaded_graph)
-    return loaded_graph
+    graph = {}
+    with open("school_web.txt", "r") as args.file:
+        for line in args.file:
+            # And split each line into two URLs
+            node, target = line.split()
+            graph[node] = target
+
+    return graph
 
 
 def print_stats(graph):
     """Print number of nodes and edges in the given graph"""
-    graph_length = len(graph)
-    print(graph_length)
+    node_length = len(graph)
+    print(node_length)
+
+    for node, target in graph:
+        print(len(node))
+        print(len(target))
+
 
 
     #raise RuntimeError("This function is not implemented yet.")
@@ -49,8 +52,6 @@ def stochastic_page_rank(graph, args):
     a random walk that starts on a random node will after n_steps end
     on each node of the given graph.
     """
-
-
 
     raise RuntimeError("This function is not implemented yet.")
 
