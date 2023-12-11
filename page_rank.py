@@ -18,17 +18,21 @@ def load_graph(args):
         # Iterate through the file line by line
         for line in args.datafile:
             # And split each line into two URLs
-            node, target = line.split()
-            dictionary = {
+            str(node), str(target) = line.split()
+            websites = {
                 node: target
             }
-            print(dictionary)
+            return websites
             # raise RuntimeError("This function is not implemented yet.")
 
 
 def print_stats(graph):
-        """Print number of nodes and edges in the given graph"""
-        raise RuntimeError("This function is not implemented yet.")
+    """Print number of nodes and edges in the given graph"""
+    number_of_nodes = node.load_graph()
+    number_of_targets = target.load_graph()
+    print(number_of_nodes)
+    print(number_of_targets)
+    raise RuntimeError("This function is not implemented yet.")
 
 
 def stochastic_page_rank(graph, args):
