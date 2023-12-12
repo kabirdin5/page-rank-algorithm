@@ -1,3 +1,4 @@
+import random
 import sys
 import os
 import time
@@ -29,9 +30,9 @@ def print_stats(graph):
     node_length = len(graph)
     print(node_length)
 
-    for node, target in graph:
-        print(len(node))
-        print(len(target))
+    #for node, target in graph:
+     #   print(len(node))
+      #  print(len(target))
 
 
 
@@ -53,7 +54,23 @@ def stochastic_page_rank(graph, args):
     on each node of the given graph.
     """
 
-    raise RuntimeError("This function is not implemented yet.")
+    hit_count = {node: 0
+                 for node in graph}
+    current_node = random.choice(list(graph.keys()))
+
+    hit_count[current_node] += 1
+
+    for x in range(args.repeats):
+        for y in range(args.steps):
+            if current_node not in graph[current_node]:
+                current_node = random.choice(list(graph.keys()))
+            else:
+                current_node = random.choice(graph[current_node])
+
+            hit_count[current_node] += 1
+
+    return ranking
+
 
 
 def distribution_page_rank(graph, args):
@@ -69,6 +86,7 @@ def distribution_page_rank(graph, args):
     This function estimates the Page Rank by iteratively calculating
     the probability that a random walker is currently on any node.
     """
+
     raise RuntimeError("This function is not implemented yet.")
 
 
