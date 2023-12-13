@@ -56,15 +56,21 @@ def stochastic_page_rank(graph, args):
     """
 
     hit_count = {node: 0 for node in graph}
+    prog = Progress(100, "Completing stochastic_page_rank task")
     for x in range(args.repeats):
         current_node = random.choice(list(graph.keys()))
-        current_node = random.choice(graph[current_node])
+
+        if graph[current_node]:
+            current_node = random.choice(graph[current_node])
+
         hit_count[current_node] += 1
+        prog += 1
+        prog.show()
+    prog.finish()
 
     ranking = {value: count / args.steps for value, count in hit_count.items()}
 
     return ranking
-
 
 def distribution_page_rank(graph, args):
     """Probabilistic PageRank estimation
@@ -86,11 +92,15 @@ def distribution_page_rank(graph, args):
     node_prob = {node: 1 / number_of_nodes
                  for node in nodes}
 
+    prog = Progress(100, "Completing distribution_page_rank task")
     for x in range(args.steps):
+
         next_prob = {node: 0
                      for node in nodes}
 
         for node in nodes:
+            prog += 1
+            prog.show()
             if len(graph[node]) > 0:
                 p = node_prob[node] / len(graph[node])
             else:
@@ -100,7 +110,7 @@ def distribution_page_rank(graph, args):
                 next_prob[target] += p
 
         node_prob = next_prob
-
+    prog.finish()
     return node_prob
 
 
