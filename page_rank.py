@@ -16,28 +16,29 @@ def load_graph(args):
     """
     # Iterate through the file line by line
     graph = {}
-    with open("school_web.txt", "r") as args.file:
-        for line in args.file:
-            # And split each line into two URLs
+    for line in args.datafile:
+        # And split each line into two URLs
+        try:
             node, target = line.split()
-            graph[node] = target
+        except:
+            print("Error")
+            continue
+
+        if node not in graph:
+            graph[node] = []
+        graph[node].append(target)
+
+        if target not in graph:
+            graph[target] = []
 
     return graph
 
-
 def print_stats(graph):
     """Print number of nodes and edges in the given graph"""
-    node_length = len(graph)
-    print(node_length)
-
-    #for node, target in graph:
-     #   print(len(node))
-      #  print(len(target))
-
-
-
-    #raise RuntimeError("This function is not implemented yet.")
-
+    number_of_nodes = len(graph)
+    number_of_edges = sum(len(edges) for edges in graph.values())
+    print(f"Number of nodes: {number_of_nodes}")
+    print(f"Number of edges: {number_of_edges}")
 
 def stochastic_page_rank(graph, args):
     """Stochastic PageRank estimation
@@ -54,23 +55,15 @@ def stochastic_page_rank(graph, args):
     on each node of the given graph.
     """
 
-    hit_count = {node: 0
-                 for node in graph}
-    current_node = random.choice(list(graph.keys()))
-
-    hit_count[current_node] += 1
-
+    hit_count = {node: 0 for node in graph}
     for x in range(args.repeats):
-        for y in range(args.steps):
-            if current_node not in graph[current_node]:
-                current_node = random.choice(list(graph.keys()))
-            else:
-                current_node = random.choice(graph[current_node])
+        current_node = random.choice(list(graph.keys()))
+        current_node = random.choice(graph[current_node])
+        hit_count[current_node] += 1
 
-            hit_count[current_node] += 1
+    ranking = {value: count / args.steps for value, count in hit_count.items()}
 
     return ranking
-
 
 
 def distribution_page_rank(graph, args):
@@ -87,7 +80,28 @@ def distribution_page_rank(graph, args):
     the probability that a random walker is currently on any node.
     """
 
-    raise RuntimeError("This function is not implemented yet.")
+    nodes = list(graph.keys())
+    number_of_nodes = len(nodes)
+
+    node_prob = {node: 1 / number_of_nodes
+                 for node in nodes}
+
+    for x in range(args.steps):
+        next_prob = {node: 0
+                     for node in nodes}
+
+        for node in nodes:
+            if len(graph[node]) > 0:
+                p = node_prob[node] / len(graph[node])
+            else:
+                p = 0
+
+            for target in graph[node]:
+                next_prob[target] += p
+
+        node_prob = next_prob
+
+    return node_prob
 
 
 parser = argparse.ArgumentParser(description="Estimates page ranks from link information")
