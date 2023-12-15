@@ -64,6 +64,7 @@ def stochastic_page_rank(graph, args):  # Defines the stochastic_page_rank(graph
     a random walk that starts on a random node will after n_repeats end
     on each node of the given graph.
     """
+
     # Initialises a dictionary that stores the hit counts of each node
     hit_count = {node: 0 for node in graph}
 
@@ -90,8 +91,12 @@ def stochastic_page_rank(graph, args):  # Defines the stochastic_page_rank(graph
     return ranking  # Returns the ranking variable
 
 
+
+
+
 def distribution_page_rank(graph, args):  # Defines the distribution_page_rank(graph, args) function
-    """Probabilistic PageRank estimation
+    """
+    Probabilistic PageRank estimation
 
     Parameters:
     graph -- a graph object as returned by load_graph()
@@ -113,7 +118,7 @@ def distribution_page_rank(graph, args):  # Defines the distribution_page_rank(g
                  for node in nodes}
 
     # Completes random walks according to the specified number of steps
-    for x in range(args.steps):
+    for _ in range(args.steps):
         # Creates a dictionary that initialises the next iteration of probability distribution
         next_prob = {node: 0
                      for node in nodes}
@@ -137,7 +142,6 @@ def distribution_page_rank(graph, args):  # Defines the distribution_page_rank(g
         # The current probability distribution is updated for the next iteration
         node_prob = next_prob
     return node_prob  # The probability for each node is returned
-
 
 """ Argument Parser """
 # Creates a variable sets up the argument parser

@@ -4,7 +4,7 @@
 have optimised my code on the PageRank algorithms. 
 The PageRank algorithms that I will be going
 through are stochastic and distribution.**
-
+***
 ## Stochastic
 ```
 hit_count = {node: 0 for node in graph}
@@ -59,7 +59,7 @@ However, I was still believed that the algorithm was still
 slow since there was a steps loop within the repeats loop.
 I was able to remove it which now give an execution time of
 0.47 seconds.
-
+***
 ## Distribution
 ```
 for x in range(args.steps):
@@ -108,6 +108,7 @@ return node_prob
 ```
 Calculation took 0.10 seconds.
 
+
 ### What I have done to optimise this code:
 
 The first 3 variables (nodes, number_of_nodes, node_prob) within 
@@ -119,7 +120,7 @@ the loops to increase the execution time.
 Also, in the first loop, I used the variable "_" to indicate that
 the index is not used. This makes the execution time a lot faster as
 the algorithm is aware of the index.
-
+***
 ## Progress Bar
 Using the progress bar in both algorithms made the calculation take
 a lot longer. The purpose of this assignment is to ensure that the 
