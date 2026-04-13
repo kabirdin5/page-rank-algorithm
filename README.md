@@ -1,5 +1,3 @@
-# CSC1034: Assessment 3
-
 ## Kabir Din's PageRank Algorithm Project
 (This package is built as a part of the CSC1034: Portfolio-1)
 ***
